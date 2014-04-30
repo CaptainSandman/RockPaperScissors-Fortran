@@ -59,7 +59,7 @@ subroutine whoWon (user, computer, winner)
 
 	integer, intent(in) :: user
 	integer, intent(in) :: computer
-	integer, intent(out) :: winner
+	logical, intent(out) :: winner
 
 	! TODO: Figure this out. :P
 
@@ -70,15 +70,15 @@ subroutine gameLoop
 
 	integer :: player
 	integer :: computer
-	integer :: theWinner
+	logical :: theWinner
 
-	do while (1 == 1)
+	do while (.true. .eqv. .true.)
 
 		call grabInput(player)
 		call makeMove(computer)
 		call whoWon(player, computer, theWinner)
 
-		if (theWinner == 1) then
+		if (theWinner .eqv. .true.) then
 			print *, "A winner is you!"
 		else
 			print *, "You lost. Sad face."
