@@ -7,10 +7,10 @@ module rpsGameModule
 
 	implicit none
 
-	integer :: ROCK = 1
-	integer :: PAPER = 2
-	integer :: SCISSORS = 3
-	integer :: EXIT_GAME = 4
+	integer, parameter :: ROCK = 1
+	integer, parameter :: PAPER = 2
+	integer, parameter :: SCISSORS = 3
+	integer, parameter :: EXIT_GAME = 4
 
 end module rpsGameModule
 
@@ -42,9 +42,27 @@ subroutine makeMove (choice)
 
 	use rpsGameModule
 
+	implicit none
+
 	integer, intent(out) :: choice
 
-	choice = (SCISSORS - ROCK) * rand(0) + ROCK
+	choice = (rand(0) * SCISSORS) + ROCK
+
+	select case (choice)
+
+		case (ROCK)
+			print *, "Computer chose Rock."
+
+		case (PAPER)
+			print *, "Computer chose Paper."
+
+		case (SCISSORS)
+			print *, "Computer chose Scissors."
+
+		case default
+			print *, "wow"
+
+	end select
 
 end subroutine makeMove
 
