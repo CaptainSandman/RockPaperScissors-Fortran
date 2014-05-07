@@ -59,9 +59,6 @@ subroutine makeMove (choice)
 		case (SCISSORS)
 			print *, "Computer chose Scissors."
 
-		case default
-			print *, "wow"
-
 	end select
 
 end subroutine makeMove
@@ -90,7 +87,7 @@ subroutine gameLoop
 	integer :: computer
 	logical :: theWinner
 
-	do while (.true. .eqv. .true.)
+	do while (.true.)
 
 		call grabInput(player)
 		call makeMove(computer)
@@ -107,10 +104,6 @@ subroutine gameLoop
 end subroutine
 
 program rps
-
-	use rpsGameModule
-
-	implicit none
 
 	print *, "Josh's Rock, Paper, Scissors Game in Fortran!"
 
