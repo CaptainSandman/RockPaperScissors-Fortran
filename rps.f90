@@ -92,7 +92,6 @@ subroutine whoWon (user, computer, winner)
 	integer, intent(in) :: computer
 	integer, intent(out) :: winner
 
-	! TODO: Figure this out. :P
 	select case (user)
 	
 		case (ROCK)
