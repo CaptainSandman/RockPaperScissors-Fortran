@@ -30,6 +30,22 @@ subroutine grabInput (choice)
 
 	read *, choice
 
+	select case (choice)
+
+		case (ROCK)
+			print *, "You chose Rock."
+
+		case (PAPER)
+			print *, "You chose Paper."
+
+		case (SCISSORS)
+			print *, "You chose Scissors."
+
+		case (EXIT_GAME)
+			print *, "Bye bye!"
+
+	end select
+
 	if (choice == EXIT_GAME) then
 		call exit(0)
 	end if
@@ -65,7 +81,7 @@ end subroutine makeMove
 
 ! Figures out who won.
 ! Inputs: User's choice, and Computer's choice
-! Returns: Logical that is true if the user won, false otherwise.
+! Returns: Integer that is 1 if the user won, 0 if the CPU won, and -1 if tie.
 subroutine whoWon (user, computer, winner)
 
 	use rpsGameModule
@@ -74,9 +90,53 @@ subroutine whoWon (user, computer, winner)
 
 	integer, intent(in) :: user
 	integer, intent(in) :: computer
-	logical, intent(out) :: winner
+	integer, intent(out) :: winner
 
 	! TODO: Figure this out. :P
+	select case (user)
+	
+		case (ROCK)
+			select case (computer)
+
+				case (ROCK)
+					winner = -1
+
+				case (PAPER)
+					winner = 0
+
+				case (SCISSORS)
+					winner = 1
+
+			end select
+
+		case (PAPER)
+			select case (computer)
+
+				case (ROCK)
+					winner = 1
+
+				case (PAPER)
+					winner = -1
+
+				case (SCISSORS)
+					winner = 0
+			end select
+
+		case (SCISSORS)
+			select case (computer)
+
+				case (ROCK)
+					winner = 0
+
+				case (PAPER)
+					winner = 1
+
+				case (SCISSORS)
+					winner = -1
+
+			end select
+	
+	end select
 
 end subroutine whoWon
 
@@ -85,7 +145,7 @@ subroutine gameLoop
 
 	integer :: player
 	integer :: computer
-	logical :: theWinner
+	integer :: theWinner
 
 	do while (.true.)
 
@@ -93,10 +153,12 @@ subroutine gameLoop
 		call makeMove(computer)
 		call whoWon(player, computer, theWinner)
 
-		if (theWinner .eqv. .true.) then
+		if (theWinner .eq. 1) then
 			print *, "A winner is you!"
-		else
+		else if (theWinner .eq. 0) then
 			print *, "You lost. Sad face."
+		else
+			print *, "Tied game."
 		end if
 
 	end do
